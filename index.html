@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 </head>
@@ -25,9 +25,13 @@
         </div>
 
         <main>
-            <canvas id="visualizer" width="400" height="400"></canvas>
+            <canvas id="visualizer" width="auto" height="auto"></canvas>
         </main>
 
+        <main>
+            <canvas id="visualizer" width="auto" height="auto"></canvas>
+        </main>
+        
         <div id="unsupported">
             <p>Your browser does not support the Vibration API.</p>
         </div>
@@ -48,7 +52,6 @@
         </div>
 
         <script src="sketch.js"></script>
-
     </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 html, body {
-  margin: 0;
-  padding: 0;
+  margin: auto;
+  padding: auto;
 }
 
 canvas {
@@ -8,5 +8,5 @@ canvas {
 }
 
 #uploadMusicHere {
-  margin-top: 20px;
+  margin-top: 25px;
 }
