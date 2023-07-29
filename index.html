@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1.0,user-scalable=no">
+
+    <title>Sound Visualization with Phone Vibration</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="page-header">
+            <h1>Sound Visualization with Phone Vibration</h1>
+        </div>
+
+        <div id="uploadMusicHere">
+            <input type="file" id="musicFile" accept="audio/*">
+        </div>
+
+        <main>
+            <canvas id="visualizer" width="400" height="400"></canvas>
+        </main>
+
+        <div id="unsupported">
+            <p>Your browser does not support the Vibration API.</p>
+        </div>
+
+        <div id="supported" class="row">
+            <div class="col-xs-12 col-sm-6">
+                <button id="one" type="button" class="btn btn-primary btn-lg btn-block">One Second Vibration</button>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <button id="pattern" type="button" class="btn btn-info btn-lg btn-block">Vibration Pattern</button>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <button id="ten" type="button" class="btn btn-warning btn-lg btn-block">10 Second Vibration</button>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <button id="stop" type="button" class="btn btn-danger btn-lg btn-block">Stop All Vibrations</button>
+            </div>
+        </div>
+
+        <script src="sketch.js"></script>
+
+    </div>
+</body>
+</html>
