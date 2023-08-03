@@ -127,7 +127,7 @@ function draw() {
         let rms = amplitude.getLevel();
 
         if(rms > 0.1 && bassVibrate){
-            navigator.vibrate(200);
+            navigator.vibrate(10);
             //console.log(rms)
             bassVibrate = false;
         }
@@ -161,9 +161,6 @@ function fileSuccess() {
     sound.play();
     soundPlaying = true;
     console.log("sound file uploaded");
-
-
-
     
 }
 
