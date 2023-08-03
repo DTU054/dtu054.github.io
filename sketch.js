@@ -23,26 +23,6 @@ $(document).ready(function () {
 
     $('#unsupported').hide();
 
-    // One second vibration
-    $('#one').click(function () {
-        navigator.vibrate(1000);
-    });
-
-    // Vibration pattern
-    $('#pattern').click(function () {
-        navigator.vibrate([500, 100, 250, 100, 1000]);
-    });
-
-    // 10 second vibration
-    $('#ten').click(function () {
-        navigator.vibrate(10000);
-    });
-
-    // Stop all vibrations
-    $('#stop').click(function () {
-        navigator.vibrate(0);
-    });
-
     const musicFileInput = document.getElementById('musicFile');
     musicFileInput.addEventListener('change', onMusicSelected);
 
@@ -158,8 +138,5 @@ function fileSuccess() {
     sound.play();
     soundPlaying = true;
     console.log("sound file uploaded");
-
-
-
     
 }
