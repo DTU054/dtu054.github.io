@@ -7,7 +7,8 @@ var helixNum = 0;
 var uploadMusic;
 var sound;
 var soundPlaying;
-
+var amplitude;
+var bassVibrate = true;
 let counter = 0;
 
 $(document).ready(function () {
@@ -16,8 +17,8 @@ $(document).ready(function () {
 
     // Determine if vibration is supported in this web browser
     if (!navigator.vibrate) {
-         $('#supported').hide();
-         return;
+        $('#supported').hide();
+        return;
     }
 
     $('#unsupported').hide();
@@ -48,6 +49,7 @@ $(document).ready(function () {
     fft = new p5.FFT();
     soundPlaying = false;
 });
+
 
 function onMusicSelected(event) {
     const file = event.target.files[0];
@@ -94,7 +96,11 @@ function setup() {
     uploadMusic.dragLeave(unhighlight);
     uploadMusic.drop(gotFile, unhighlight);
 
+    amplitude = new p5.Amplitude();
+
     setInterval(increment, 1300);
+
+
 }
 
 function draw() {
@@ -118,9 +124,15 @@ function draw() {
             background(255);
         }
 
-        if(counter%3<2){
-            window.navigator.vibrate(1000);
-            console.log('fxxfgf');
+        let rms = amplitude.getLevel();
+
+        if(rms > 0.1 && bassVibrate){
+            navigator.vibrate(200);
+            //console.log(rms)
+            bassVibrate = false;
+        }
+        else {
+            bassVibrate = true;
         }
     }
 }
@@ -137,6 +149,11 @@ function gotFile(file) {
     sound = loadSound(file.data, onMusicLoaded, fileError);
     fft = new p5.FFT();
     sound.amp(0.2);
+
+    // create a new Amplitude analyzer
+    amplitude = new p5.Amplitude();
+    // Patch the input to an volume analyzer
+    amplitude.setInput(sound);
 }
 
 function fileSuccess() {
@@ -144,9 +161,12 @@ function fileSuccess() {
     sound.play();
     soundPlaying = true;
     console.log("sound file uploaded");
+
+
+
+    
 }
 
 function increment() {
     counter++;
-
 }
