@@ -80,7 +80,7 @@ function musicFinishedPlaying() {
 }
 
 function setup() {
-    createCanvas(500, 500);
+    createCanvas(windowWidth, windowHeight);
     stroke(0, 20);
     noFill();
     t = 0;
