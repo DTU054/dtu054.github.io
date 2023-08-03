@@ -143,5 +143,5 @@ function fileSuccess() {
 
 function increment() {
     counter++;
-    navigator.vibrate(1000);
+    window.navigator.vibrate(1000);
 }
