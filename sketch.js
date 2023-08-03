@@ -117,6 +117,11 @@ function draw() {
         if (frameCount % 500 == 0) {
             background(255);
         }
+
+        if(counter%3==0){
+            window.navigator.vibrate(1000);
+            console.log('fxxfgf');
+        }
     }
 }
 
@@ -143,5 +148,5 @@ function fileSuccess() {
 
 function increment() {
     counter++;
-    window.navigator.vibrate(1000);
+
 }
