@@ -118,7 +118,7 @@ function draw() {
             background(255);
         }
 
-        if(counter%3==0){
+        if(counter%3<2){
             window.navigator.vibrate(1000);
             console.log('fxxfgf');
         }
