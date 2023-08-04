@@ -113,7 +113,10 @@ function draw() {
         // }
     }
 }
-
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+  }
+  
 function unhighlight() {
     introP.style('color', 'white');
 }
