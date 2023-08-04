@@ -49,8 +49,8 @@ main {
 }
 
 canvas {
-  border: 0px solid #ccc;
-  margin-bottom: 0px;
+  border: none;
+  margin-bottom: 20px;
 }
 
 #unsupported {
