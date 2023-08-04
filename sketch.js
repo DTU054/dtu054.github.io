@@ -62,7 +62,7 @@ function musicFinishedPlaying() {
 }
 
 function setup() {
-    createCanvas(windowwidth, windowheight);
+    createCanvas(windowWidth, windowHeight);
     stroke(0, 20);
     noFill();
     t = 0;
