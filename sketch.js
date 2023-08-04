@@ -62,7 +62,7 @@ function musicFinishedPlaying() {
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(windowwidth, windowheight);
     stroke(0, 20);
     noFill();
     t = 0;
@@ -119,7 +119,7 @@ function unhighlight() {
 }
 
 function highlight() {
-    introP.style('color', 'blue');
+    introP.style('color', 'black');
 }
 
 function gotFile(file) {
