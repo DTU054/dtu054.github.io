@@ -48,11 +48,6 @@ main {
   display: none;
 }
 
-canvas {
-  border: 1px solid #ccc;
-  margin-bottom: 20px;
-}
-
 #unsupported {
   text-align: center;
   color: #999;
