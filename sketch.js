@@ -85,47 +85,54 @@ function draw() {
       let spectrum = fft.analyze();
   
       // Clear the background to create a fading effect
-      background(0, 10);
+      background(0, 30);
   
       // Set stroke weight based on amplitude
       let rms = amplitude.getLevel();
-      let strokeWeightVal = map(rms, 0, 1, 1, 10);
+      let strokeWeightVal = map(rms, 0, 1, 1, 5);
   
       // Create colorful and dynamic visuals
-      for (let i = 0; i < spectrum.length; i += 5) {
-        let angle = map(i, 0, spectrum.length, 0, TWO_PI);
-        let radius = map(spectrum[i], 0, 255, 50, height / 2);
+      let numShapes = spectrum.length / 2;
+      let angleStep = TWO_PI / numShapes;
+      let hue = 0;
   
-        // Calculate the position of the points
+      for (let i = 0; i < spectrum.length; i += 2) {
+        let angle = i * angleStep;
+        let radius = map(spectrum[i], 0, 255, 50, height / 3);
+  
         let x1 = width / 2 + radius * cos(angle);
         let y1 = height / 2 + radius * sin(angle);
         let x2 = width / 2 + (radius + 100 * rms) * cos(angle);
         let y2 = height / 2 + (radius + 100 * rms) * sin(angle);
   
-        // Set the fill color based on the angle and amplitude
-        let fillColor = color(map(angle, 0, TWO_PI, 0, 255), 255, 255);
-        fill(fillColor);
-  
-        // Draw colorful circles
-        let circleSize = map(rms, 0, 1, 5, 50);
-        ellipse(x1, y1, circleSize);
-        ellipse(x2, y2, circleSize);
-  
         // Set the stroke color based on the angle and amplitude
-        let strokeColor = color(map(angle, 0, TWO_PI, 0, 255), 255, 255);
+        let strokeColor = color(hue % 255, 255, 255);
         stroke(strokeColor);
         strokeWeight(strokeWeightVal);
   
-        // Draw colorful lines
-        line(x1, y1, x2, y2);
+        // Draw colorful shapes
+        if (i % 4 === 0) {
+          line(x1, y1, x2, y2);
+        } else if (i % 4 === 1) {
+          ellipse(x1, y1, 2 * rms * radius);
+        } else if (i % 4 === 2) {
+          beginShape();
+          vertex(x1, y1);
+          vertex(x2, y2);
+          vertex(width / 2, height / 2);
+          endShape(CLOSE);
+        } else {
+          let size = map(rms, 0, 1, 10, 50);
+          fill(strokeColor);
+          noStroke();
+          ellipse(x2, y2, size);
+        }
   
-        // Draw colorful triangles connecting the circles and lines
-        let x3 = width / 2 + (radius + 50 * rms) * cos(angle - PI / 6);
-        let y3 = height / 2 + (radius + 50 * rms) * sin(angle - PI / 6);
-        triangle(x1, y1, x2, y2, x3, y3);
+        hue += 3;
       }
     }
   }
+  
   
   
 function windowResized() {
@@ -133,11 +140,11 @@ function windowResized() {
   }
   
 function unhighlight() {
-    introP.style('color', 'white');
+    introP.style('color', 'pink');
 }
 
 function highlight() {
-    introP.style('color', 'black');
+    introP.style('color', 'blue');
 }
 
 function gotFile(file) {
