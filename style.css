@@ -50,7 +50,7 @@ main {
 
 canvas {
   border: none;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 #unsupported {
