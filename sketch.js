@@ -83,6 +83,16 @@ function setup() {
 function draw() {
     if (soundPlaying) {
         let spectrum = fft.analyze();
+
+        // Map the amplitude to a color range (e.g., from blue to red)
+        let mappedAmplitude = map(amplitude.getLevel(), 0, 0.3, 0, 1);
+        let r = map(mappedAmplitude, 0, 1, 0, 255);
+        let b = map(mappedAmplitude, 0, 1, 255, 0);
+        let g = 100;
+
+        // Set stroke color based on the mapped amplitude
+        stroke(r, g, b, 100);
+
         var x1 = width * noise(t + 15);
         var x2 = width * noise(t + 25);
         var x3 = width * noise(t + 35);
@@ -95,24 +105,14 @@ function draw() {
         bezier(x1, y1, x2, y2, x3, y3, x4, y4);
 
         let rms = amplitude.getLevel();
-        t += rms/10;
+        t += rms / 10;
 
         if (frameCount % 500 == 0) {
             background(255);
         }
-
-
-
-        // if(rms > 0.1 && bassVibrate){
-        //     navigator.vibrate(200);
-        //     //console.log(rms)
-        //     bassVibrate = false;
-        // }
-        // else {
-        //     bassVibrate = true;
-        // }
     }
 }
+
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
   }
