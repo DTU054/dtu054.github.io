@@ -30,6 +30,7 @@ $(document).ready(function () {
     soundPlaying = false;
 });
 
+
 function onMusicSelected(event) {
     const file = event.target.files[0];
     if (file.type.startsWith('audio/')) {
@@ -62,7 +63,7 @@ function musicFinishedPlaying() {
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    stroke(255, 50);
+    stroke(0, 20);
     noFill();
     t = 0;
 
@@ -76,11 +77,10 @@ function setup() {
     uploadMusic.drop(gotFile, unhighlight);
 
     amplitude = new p5.Amplitude();
+
 }
 
 function draw() {
-    background(255, 50); // Add transparency to create trails
-
     if (soundPlaying) {
         let spectrum = fft.analyze();
         var x1 = width * noise(t + 15);
@@ -92,21 +92,16 @@ function draw() {
         var y3 = height * noise(t + 75);
         var y4 = height * noise(t + 85);
 
-        // Create a colorful gradient using the spectrum data
-        var c1 = color(spectrum[0], spectrum[50], spectrum[100]);
-        var c2 = color(spectrum[200], spectrum[400], spectrum[600]);
-        var gradient = lerpColor(c1, c2, 0.5);
-
-        stroke(gradient);
-
         bezier(x1, y1, x2, y2, x3, y3, x4, y4);
 
         let rms = amplitude.getLevel();
-        t += rms / 10;
+        t += rms/10;
 
         if (frameCount % 500 == 0) {
-            background(255, 50); // Clear the background every 500 frames
+            background(255);
         }
+
+
 
         // if(rms > 0.1 && bassVibrate){
         //     navigator.vibrate(200);
@@ -120,8 +115,8 @@ function draw() {
 }
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-}
-
+  }
+  
 function unhighlight() {
     introP.style('color', 'white');
 }
@@ -137,7 +132,7 @@ function gotFile(file) {
 
     // create a new Amplitude analyzer
     amplitude = new p5.Amplitude();
-    // Patch the input to a volume analyzer
+    // Patch the input to an volume analyzer
     amplitude.setInput(sound);
 }
 
@@ -146,4 +141,5 @@ function fileSuccess() {
     sound.play();
     soundPlaying = true;
     console.log("sound file uploaded");
+    
 }
