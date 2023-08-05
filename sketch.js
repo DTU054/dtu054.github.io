@@ -30,7 +30,6 @@ $(document).ready(function () {
     soundPlaying = false;
 });
 
-
 function onMusicSelected(event) {
     const file = event.target.files[0];
     if (file.type.startsWith('audio/')) {
@@ -63,7 +62,7 @@ function musicFinishedPlaying() {
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    stroke(0, 20);
+    stroke(255, 50);
     noFill();
     t = 0;
 
@@ -77,74 +76,59 @@ function setup() {
     uploadMusic.drop(gotFile, unhighlight);
 
     amplitude = new p5.Amplitude();
-
 }
 
 function draw() {
+    background(255, 50); // Add transparency to create trails
+
     if (soundPlaying) {
-      let spectrum = fft.analyze();
-  
-      // Clear the background to create a fading effect
-      background(0, 30);
-  
-      // Set stroke weight based on amplitude
-      let rms = amplitude.getLevel();
-      let strokeWeightVal = map(rms, 0, 1, 1, 5);
-  
-      // Create colorful and dynamic visuals
-      let numShapes = spectrum.length / 2;
-      let angleStep = TWO_PI / numShapes;
-      let hue = 0;
-  
-      for (let i = 0; i < spectrum.length; i += 2) {
-        let angle = i * angleStep;
-        let radius = map(spectrum[i], 0, 255, 50, height / 3);
-  
-        let x1 = width / 2 + radius * cos(angle);
-        let y1 = height / 2 + radius * sin(angle);
-        let x2 = width / 2 + (radius + 100 * rms) * cos(angle);
-        let y2 = height / 2 + (radius + 100 * rms) * sin(angle);
-  
-        // Set the stroke color based on the angle and amplitude
-        let strokeColor = color(hue % 255, 255, 255);
-        stroke(strokeColor);
-        strokeWeight(strokeWeightVal);
-  
-        // Draw colorful shapes
-        if (i % 4 === 0) {
-          line(x1, y1, x2, y2);
-        } else if (i % 4 === 1) {
-          ellipse(x1, y1, 2 * rms * radius);
-        } else if (i % 4 === 2) {
-          beginShape();
-          vertex(x1, y1);
-          vertex(x2, y2);
-          vertex(width / 2, height / 2);
-          endShape(CLOSE);
-        } else {
-          let size = map(rms, 0, 1, 10, 50);
-          fill(strokeColor);
-          noStroke();
-          ellipse(x2, y2, size);
+        let spectrum = fft.analyze();
+        var x1 = width * noise(t + 15);
+        var x2 = width * noise(t + 25);
+        var x3 = width * noise(t + 35);
+        var x4 = width * noise(t + 45);
+        var y1 = height * noise(t + 55);
+        var y2 = height * noise(t + 65);
+        var y3 = height * noise(t + 75);
+        var y4 = height * noise(t + 85);
+
+        // Create a colorful gradient using the spectrum data
+        var c1 = color(spectrum[0], spectrum[50], spectrum[100]);
+        var c2 = color(spectrum[200], spectrum[400], spectrum[600]);
+        var gradient = lerpColor(c1, c2, 0.5);
+
+        stroke(gradient);
+
+        bezier(x1, y1, x2, y2, x3, y3, x4, y4);
+
+        let rms = amplitude.getLevel();
+        t += rms / 10;
+
+        if (frameCount % 500 == 0) {
+            background(255, 50); // Clear the background every 500 frames
         }
-  
-        hue += 3;
-      }
+
+        // if(rms > 0.1 && bassVibrate){
+        //     navigator.vibrate(200);
+        //     //console.log(rms)
+        //     bassVibrate = false;
+        // }
+        // else {
+        //     bassVibrate = true;
+        // }
     }
-  }
-  
-  
-  
+}
+
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-  }
-  
+}
+
 function unhighlight() {
-    introP.style('color', 'pink');
+    introP.style('color', 'white');
 }
 
 function highlight() {
-    introP.style('color', 'blue');
+    introP.style('color', 'black');
 }
 
 function gotFile(file) {
@@ -154,7 +138,7 @@ function gotFile(file) {
 
     // create a new Amplitude analyzer
     amplitude = new p5.Amplitude();
-    // Patch the input to an volume analyzer
+    // Patch the input to a volume analyzer
     amplitude.setInput(sound);
 }
 
@@ -163,5 +147,4 @@ function fileSuccess() {
     sound.play();
     soundPlaying = true;
     console.log("sound file uploaded");
-    
 }
