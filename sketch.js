@@ -87,34 +87,46 @@ function draw() {
       // Clear the background to create a fading effect
       background(0, 10);
   
-      // Set stroke color and weight based on amplitude
+      // Set stroke weight based on amplitude
       let rms = amplitude.getLevel();
-      let strokeColor = color(map(rms, 0, 1, 50, 255), map(rms, 0, 1, 100, 255), 255);
-      stroke(strokeColor);
-      strokeWeight(map(rms, 0, 1, 1, 5));
+      let strokeWeightVal = map(rms, 0, 1, 1, 10);
   
       // Create colorful and dynamic visuals
-      for (let i = 0; i < spectrum.length; i += 10) {
+      for (let i = 0; i < spectrum.length; i += 5) {
         let angle = map(i, 0, spectrum.length, 0, TWO_PI);
         let radius = map(spectrum[i], 0, 255, 50, height / 2);
   
+        // Calculate the position of the points
         let x1 = width / 2 + radius * cos(angle);
         let y1 = height / 2 + radius * sin(angle);
         let x2 = width / 2 + (radius + 100 * rms) * cos(angle);
         let y2 = height / 2 + (radius + 100 * rms) * sin(angle);
   
-        line(x1, y1, x2, y2);
+        // Set the fill color based on the angle and amplitude
+        let fillColor = color(map(angle, 0, TWO_PI, 0, 255), 255, 255);
+        fill(fillColor);
   
-        // Draw colorful circles at the ends of the lines
-        let circleSize = map(rms, 0, 1, 10, 50);
-        let circleColor = color(map(angle, 0, TWO_PI, 0, 255), 255, 255);
-        fill(circleColor);
-        noStroke();
+        // Draw colorful circles
+        let circleSize = map(rms, 0, 1, 5, 50);
         ellipse(x1, y1, circleSize);
         ellipse(x2, y2, circleSize);
+  
+        // Set the stroke color based on the angle and amplitude
+        let strokeColor = color(map(angle, 0, TWO_PI, 0, 255), 255, 255);
+        stroke(strokeColor);
+        strokeWeight(strokeWeightVal);
+  
+        // Draw colorful lines
+        line(x1, y1, x2, y2);
+  
+        // Draw colorful triangles connecting the circles and lines
+        let x3 = width / 2 + (radius + 50 * rms) * cos(angle - PI / 6);
+        let y3 = height / 2 + (radius + 50 * rms) * sin(angle - PI / 6);
+        triangle(x1, y1, x2, y2, x3, y3);
       }
     }
   }
+  
   
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
