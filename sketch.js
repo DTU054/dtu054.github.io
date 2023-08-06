@@ -82,37 +82,40 @@ function setup() {
 
 function draw() {
     if (soundPlaying) {
-        let spectrum = fft.analyze();
-
-        // Map the amplitude to a color range (e.g., from blue to red)
-        let mappedAmplitude = map(amplitude.getLevel(), 0, 0.3, 0, 1);
-        let r = map(mappedAmplitude, 0, 1, 0, 255);
-        let b = map(mappedAmplitude, 0, 1, 255, 0);
-        let g = 100;
-
-        // Set stroke color based on the mapped amplitude
-        stroke(r, g, b, 100);
-
-        var x1 = width * noise(t + 15);
-        var x2 = width * noise(t + 25);
-        var x3 = width * noise(t + 35);
-        var x4 = width * noise(t + 45);
-        var y1 = height * noise(t + 55);
-        var y2 = height * noise(t + 65);
-        var y3 = height * noise(t + 75);
-        var y4 = height * noise(t + 85);
-
-        bezier(x1, y1, x2, y2, x3, y3, x4, y4);
-
-        let rms = amplitude.getLevel();
-        t += rms / 10;
-
-        if (frameCount % 500 == 0) {
-            background(255);
-        }
+      let spectrum = fft.analyze();
+  
+      // Clear the background to create a fading effect
+      background(0, 10);
+  
+      // Set stroke color and weight based on amplitude
+      let rms = amplitude.getLevel();
+      let strokeColor = color(map(rms, 0, 1, 50, 255), map(rms, 0, 1, 100, 255), 255);
+      stroke(strokeColor);
+      strokeWeight(map(rms, 0, 1, 1, 5));
+  
+      // Create colorful and dynamic visuals
+      for (let i = 0; i < spectrum.length; i += 10) {
+        let angle = map(i, 0, spectrum.length, 0, TWO_PI);
+        let radius = map(spectrum[i], 0, 255, 50, height / 2);
+  
+        let x1 = width / 2 + radius * cos(angle);
+        let y1 = height / 2 + radius * sin(angle);
+        let x2 = width / 2 + (radius + 100 * rms) * cos(angle);
+        let y2 = height / 2 + (radius + 100 * rms) * sin(angle);
+  
+        line(x1, y1, x2, y2);
+  
+        // Draw colorful circles at the ends of the lines
+        let circleSize = map(rms, 0, 1, 10, 50);
+        let circleColor = color(map(angle, 0, TWO_PI, 0, 255), 255, 255);
+        fill(circleColor);
+        noStroke();
+        ellipse(x1, y1, circleSize);
+        ellipse(x2, y2, circleSize);
+      }
     }
-}
-
+  }
+  
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
   }
