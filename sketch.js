@@ -93,16 +93,16 @@ function draw() {
         // Set stroke color based on the mapped amplitude
         stroke(r, g, b, 100);
 
-        var x1 = width * noise(t + 20);
-        var x2 = width * noise(t + 30);
-        var x3 = width * noise(t + 40);
-        var x4 = width * noise(t + 50);
-        var x5 = width * noise(t + 60);
-        var y1 = height * noise(t + 70);
-        var y2 = height * noise(t + 80);
-        var y3 = height * noise(t + 90);
-        var y4 = height * noise(t + 100);
-        var y5 = height * noise(t + 110);
+        var x1 = width * noise(t + 15);
+        var x2 = width * noise(t + 25);
+        var x3 = width * noise(t + 35);
+        var x4 = width * noise(t + 45);
+        var x5 = width * noise(t + 55);
+        var y1 = height * noise(t + 65);
+        var y2 = height * noise(t + 75);
+        var y3 = height * noise(t + 85);
+        var y4 = height * noise(t + 95);
+        var y5 = height * noise(t + 105);
 
         bezier(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5);
 
