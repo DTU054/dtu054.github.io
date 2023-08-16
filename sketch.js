@@ -94,32 +94,26 @@ function draw() {
 
         bezier(x1, y1, x2, y2, x3, y3, x4, y4);
 
-        let rms = amplitude.getLevel();
-        t += rms/10;
-
-        if(rms>0.1 && bassVibrate){
-            bassVibrate = false;
-            navigator.vibrate(100);
-            console.log(rms);
-            setTimeout(()=>bassVibrate=true,100);
-        }
+        let test = spectrum[counter] / 10000;
+        t += test;
 
         if (frameCount % 500 == 0) {
             background(255);
         }
 
+        let rms = amplitude.getLevel();
 
-
-        // if(rms > 0.1 && bassVibrate){
-        //     navigator.vibrate(200);
-        //     //console.log(rms)
-        //     bassVibrate = false;
-        // }
-        // else {
-        //     bassVibrate = true;
-        // }
+        if(rms > 0.1 && bassVibrate){
+            navigator.vibrate(200);
+            //console.log(rms)
+            bassVibrate = false;
+        }
+        else {
+            bassVibrate = true;
+        }
     }
 }
+
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
   }
