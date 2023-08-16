@@ -97,6 +97,13 @@ function draw() {
         let rms = amplitude.getLevel();
         t += rms/10;
 
+        if(rms>0.1 && bassVibrate){
+            bassVibrate = false;
+            navigator.vibrate(100);
+            console.log(rms);
+            setTimeout(()=>bassVibrate=true,100);
+        }
+
         if (frameCount % 500 == 0) {
             background(255);
         }
